@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9329D300-DF5F-4E35-8156-071BC46739B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>D365.Community.Ps.Automation</RootNamespace>
+    <AssemblyName>ps-automation</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client.cs" />
+    <Compile Include="Contract\Assembly\PluginAssembly.cs" />
+    <Compile Include="Contract\Assembly\PluginType.cs" />
+    <Compile Include="Contract\Assembly\SdkMessageProcessingStep.cs" />
+    <Compile Include="Contract\Assembly\SdkMessageProcessingStepImage.cs" />
+    <Compile Include="Contract\Config\AutoNumberConfig.cs" />
+    <Compile Include="Contract\Config\BulkDeletesConfig.cs" />
+    <Compile Include="Contract\Config\CallerConfig.cs" />
+    <Compile Include="Contract\Config\ComponentLayersConfig.cs" />
+    <Compile Include="Contract\Config\ConnectionReferencesConfig.cs" />
+    <Compile Include="Contract\Config\DataManagementConfig.cs" />
+    <Compile Include="Contract\Config\DocumentTemplateConfig.cs" />
+    <Compile Include="Contract\Config\DuplicateRulesConfig.cs" />
+    <Compile Include="Contract\Config\SolutionComponentConfig.cs" />
+    <Compile Include="Contract\Config\EntityAllAssetsConfig.cs" />
+    <Compile Include="Contract\Config\EnvironmentVariableConfig.cs" />
+    <Compile Include="Contract\Config\ProcessOwnerConfig.cs" />
+    <Compile Include="Contract\Config\QueueConfig.cs" />
+    <Compile Include="Contract\Config\SavedQueryConfig.cs" />
+    <Compile Include="Contract\Config\TeamTemplateConfig.cs" />
+    <Compile Include="Contract\Config\UserSetupConfig.cs" />
+    <Compile Include="Contract\Config\WebResourceRegistrationConfig.cs" />
+    <Compile Include="Contract\Content\AddSolutionComponent.cs" />
+    <Compile Include="Contract\Content\DuplicateRule.cs" />
+    <Compile Include="Contract\Content\BusinessUnit.cs" />
+    <Compile Include="Contract\Content\DocumentTemplate.cs" />
+    <Compile Include="Contract\Content\DownloadBlock.cs" />
+    <Compile Include="Contract\Content\Entity.cs" />
+    <Compile Include="Contract\Content\EntityAttribute.cs" />
+    <Compile Include="Contract\Content\EntityUserLocalizedLabelMetadata.cs" />
+    <Compile Include="Contract\Content\EntityDisplayNameMetadata.cs" />
+    <Compile Include="Contract\Content\InitializeFileBlocksDownload.cs" />
+    <Compile Include="Contract\Content\IODataContents.cs" />
+    <Compile Include="Contract\Content\Organization.cs" />
+    <Compile Include="Contract\Content\QueryExpression.cs" />
+    <Compile Include="Contract\Content\ConnectionReference.cs" />
+    <Compile Include="Contract\Content\EnvironmentVariableDefinition.cs" />
+    <Compile Include="Contract\Content\PluginType.cs" />
+    <Compile Include="Contract\Content\Queue.cs" />
+    <Compile Include="Contract\Content\ComponentLayer.cs" />
+    <Compile Include="Contract\Content\Record.cs" />
+    <Compile Include="Contract\Content\SolutionComponent.cs" />
+    <Compile Include="Contract\Content\Solution.cs" />
+    <Compile Include="Contract\Content\Role.cs" />
+    <Compile Include="Contract\Content\SavedQuery.cs" />
+    <Compile Include="Contract\Content\SdkMessageProcessingStepImage.cs" />
+    <Compile Include="Contract\Content\SdkMessageProcessingStep.cs" />
+    <Compile Include="Contract\Content\PluginAssembly.cs" />
+    <Compile Include="Contract\Content\EnvironmentVariableValue.cs" />
+    <Compile Include="Contract\Content\NoContent.cs" />
+    <Compile Include="Contract\Content\ODataContents.cs" />
+    <Compile Include="Contract\Content\SdkMessageProcessingStepSecureConfig.cs" />
+    <Compile Include="Contract\Content\SystemUser.cs" />
+    <Compile Include="Contract\Content\Team.cs" />
+    <Compile Include="Contract\Content\TeamTemplate.cs" />
+    <Compile Include="Contract\Content\WebResource.cs" />
+    <Compile Include="Contract\Content\CallbackRegistration.cs" />
+    <Compile Include="Contract\Converter\CsvSorter.cs" />
+    <Compile Include="Contract\Converter\EnumConverter.cs" />
+    <Compile Include="Contract\OAuth\OAuthAppSecretToken.cs" />
+    <Compile Include="Contract\OAuth\OAuthRecord.cs" />
+    <Compile Include="Contract\OAuth\OAuthStore.cs" />
+    <Compile Include="Contract\OAuth\OAuthAppCertToken.cs" />
+    <Compile Include="Contract\OAuth\OAuthUserPwdToken.cs" />
+    <Compile Include="Contract\Content\ODataError.cs" />
+    <Compile Include="Contract\Content\IODataError.cs" />
+    <Compile Include="Contract\Config\ProcessActivationConfig.cs" />
+    <Compile Include="Contract\Content\AllEntities.cs" />
+    <Compile Include="Contract\Content\Workflow.cs" />
+    <Compile Include="Contract\Content\AsyncOperation.cs" />
+    <Compile Include="Contract\Content\EntityKeyMetadata .cs" />
+    <Compile Include="Contract\Content\EntityMetadata.cs" />
+    <Compile Include="Contract\Content\ErrorResponse.cs" />
+    <Compile Include="Contract\Content\IODataContent.cs" />
+    <Compile Include="Contract\Content\ODataContent.cs" />
+    <Compile Include="Contract\Content\ODataResponse.cs" />
+    <Compile Include="Contract\Pac\ConnectionReference.cs" />
+    <Compile Include="Contract\Pac\EnvironmentVariable.cs" />
+    <Compile Include="Contract\Pac\PacSettings.cs" />
+    <Compile Include="Data\DynamicsHelper.cs" />
+    <Compile Include="Export\FileAttachmentExport.cs" />
+    <Compile Include="Export\QueueExport.cs" />
+    <Compile Include="Export\TeamTemplateExport.cs" />
+    <Compile Include="Job\AutoNumberFormatJob.cs" />
+    <Compile Include="Job\ComponentLayersReview.cs" />
+    <Compile Include="Job\DataManagementJob.cs" />
+    <Compile Include="Job\DocumentTemplateJob.cs" />
+    <Compile Include="Job\DuplicateRuleJob.cs" />
+    <Compile Include="Job\SolutionComponentCheck.cs" />
+    <Compile Include="Job\EntityAllAssetsCheck.cs" />
+    <Compile Include="Job\EntityKeyIndexStatusVerification.cs" />
+    <Compile Include="Job\AssemblyRegistrationJob.cs" />
+    <Compile Include="Export\BulkDeleteExport.cs" />
+    <Compile Include="Export\ConnectionReferenceExport.cs" />
+    <Compile Include="Job\EnvironmentVariableJob.cs" />
+    <Compile Include="Export\DocumentTemplateExport.cs" />
+    <Compile Include="Export\EnvironmentVariableExport.cs" />
+    <Compile Include="Export\AssemblyRegistrationExport.cs" />
+    <Compile Include="Job\BulkDeleteJob.cs" />
+    <Compile Include="Export\SavedQueryExport.cs" />
+    <Compile Include="Job\ProcessActivationJob.cs" />
+    <Compile Include="Job\ProcessOwnerJob.cs" />
+    <Compile Include="Job\SavedQueryJob.cs" />
+    <Compile Include="Job\SecureConfigJob.cs" />
+    <Compile Include="Job\TeamTemplateJob.cs" />
+    <Compile Include="Job\UserSetupJob.cs" />
+    <Compile Include="Job\WebResourceRegistrationJob.cs" />
+    <Compile Include="Net\Base64Url.cs" />
+    <Compile Include="PsAutomation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PsAutomationException.cs" />
+    <Compile Include="Security\Cryptography.cs" />
+    <Compile Include="Service\Serializer.cs" />
+    <Compile Include="Job\EntityKeyIndexCreationVerification.cs" />
+    <Compile Include="Service\StringExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
