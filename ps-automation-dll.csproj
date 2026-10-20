@@ -161,6 +161,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PsAutomationException.cs" />
     <Compile Include="Security\Cryptography.cs" />
+    <Compile Include="Service\CallerCheck.cs" />
     <Compile Include="Service\Serializer.cs" />
     <Compile Include="Job\EntityKeyIndexCreationVerification.cs" />
     <Compile Include="Service\StringExtensions.cs" />

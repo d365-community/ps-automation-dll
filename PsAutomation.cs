@@ -222,22 +222,28 @@ namespace D365.Community.Ps.Automation
                     case "export-assembly-registration":
                         {
                             var config = GetJobData<Caller>(directory, prefix, "assembly-registration", true);
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            var filter = string.Empty;
-                            if (arguments.Length > 1)
+                            success = CallerCheck.Execute(config);
+                            if (success)
                             {
-                                filter = string.Join(" and ", arguments.Skip(1));
+                                CallerObjectId = config?.CallerObjectId;
+                                MsCrmCallerId = config?.MsCrmCallerId;
+                                var filter = string.Empty;
+                                if (arguments.Length > 1)
+                                {
+                                    filter = string.Join(" and ", arguments.Skip(1));
+                                }
+                                success = AssemblyRegistrationExport.Execute(directory, prefix, filter);
                             }
-                            success = AssemblyRegistrationExport.Execute(directory, prefix, filter);
                         }
                         break;
                     case "assembly-registration":
                         {
                             var config = GetJobData<Caller>(directory, prefix, job, true);
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            success = arguments.Length >= 2 && AssemblyRegistrationJob.Execute(directory, prefix, arguments.Skip(1).ToArray());
+                            success = CallerCheck.Execute(config);
+                            if (success)
+                            {
+                                success = arguments.Length >= 2 && AssemblyRegistrationJob.Execute(directory, prefix, arguments.Skip(1).ToArray());
+                            }
                         }
                         break;
                     /*
@@ -246,9 +252,11 @@ namespace D365.Community.Ps.Automation
                     case "auto-number-format":
                         {
                             var formats = GetJobData<AutoNumberFormats>(directory, prefix, job);
-                            CallerObjectId = formats.CallerObjectId;
-                            MsCrmCallerId = formats.MsCrmCallerId;
-                            success = AutoNumberFormatJob.Execute(formats);
+                            success = CallerCheck.Execute(formats);
+                            if (success)
+                            {
+                                success = AutoNumberFormatJob.Execute(formats);
+                            }
                         }
                         break;
                     /*
@@ -257,22 +265,26 @@ namespace D365.Community.Ps.Automation
                     case "export-bulk-delete":
                         {
                             var deletes = GetJobData<BulkDeletes>(directory, prefix, "bulk-delete", true);
-                            CallerObjectId = deletes?.CallerObjectId;
-                            MsCrmCallerId = deletes?.MsCrmCallerId;
-                            var filter = deletes?.Filter;
-                            if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                            success = CallerCheck.Execute(deletes);
+                            if (success)
                             {
-                                filter = string.Join(" and ", arguments.Skip(1));
+                                var filter = deletes?.Filter;
+                                if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                                {
+                                    filter = string.Join(" and ", arguments.Skip(1));
+                                }
+                                success = BulkDeleteExport.Execute(directory, prefix, filter);
                             }
-                            success = BulkDeleteExport.Execute(directory, prefix, filter);
                         }
                         break;
                     case "bulk-delete":
                         {
                             var deletes = GetJobData<BulkDeletes>(directory, prefix, job);
-                            CallerObjectId = deletes.CallerObjectId;
-                            MsCrmCallerId = deletes.MsCrmCallerId;
-                            success = BulkDeleteJob.Execute(deletes);
+                            success = CallerCheck.Execute(deletes);
+                            if (success)
+                            {
+                                success = BulkDeleteJob.Execute(deletes);
+                            }
                         }
                         break;
                     /*
@@ -281,9 +293,11 @@ namespace D365.Community.Ps.Automation
                     case "component-layer-review":
                         {
                             var componentLayers = GetJobData<ComponentLayers>(directory, prefix, "component-layer");
-                            CallerObjectId = componentLayers.CallerObjectId;
-                            MsCrmCallerId = componentLayers.MsCrmCallerId;
-                            success = ComponentLayersReview.Execute(directory, prefix, componentLayers);
+                            success = CallerCheck.Execute(componentLayers);
+                            if (success)
+                            {
+                                success = ComponentLayersReview.Execute(directory, prefix, componentLayers);
+                            }
                         }
                         break;
                     /*
@@ -292,14 +306,16 @@ namespace D365.Community.Ps.Automation
                     case "export-connection-reference":
                         {
                             var config = GetJobData<ConnectionReferencesConfig>(directory, prefix, "connection-reference", true);
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            var filter = config?.Filter;
-                            if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                            success = CallerCheck.Execute(config);
+                            if (success)
                             {
-                                filter = string.Join(" and ", arguments.Skip(1));
+                                var filter = config?.Filter;
+                                if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                                {
+                                    filter = string.Join(" and ", arguments.Skip(1));
+                                }
+                                success = ConnectionReferenceExport.Execute(directory, prefix, filter);
                             }
-                            success = ConnectionReferenceExport.Execute(directory, prefix, filter);
                         }
                         break;
                     /*
@@ -308,9 +324,11 @@ namespace D365.Community.Ps.Automation
                     case "data-management":
                         {
                             var data = GetJobData<DataManagementSet>(directory, prefix, job);
-                            CallerObjectId = data?.CallerObjectId;
-                            MsCrmCallerId = data?.MsCrmCallerId;
-                            success = DataManagementJob.Execute(data);
+                            success = CallerCheck.Execute(data);
+                            if (success)
+                            {
+                                success = DataManagementJob.Execute(data);
+                            }
                         }
                         break;
                     /*
@@ -319,22 +337,26 @@ namespace D365.Community.Ps.Automation
                     case "export-document-template":
                         {
                             var templates = GetJobData<DocumentTemplates>(directory, prefix, "document-template", true);
-                            CallerObjectId = templates?.CallerObjectId;
-                            MsCrmCallerId = templates?.MsCrmCallerId;
-                            var filter = templates?.Filter;
-                            if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                            success = CallerCheck.Execute(templates);
+                            if (success)
                             {
-                                filter = string.Join(" and ", arguments.Skip(1));
+                                var filter = templates?.Filter;
+                                if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                                {
+                                    filter = string.Join(" and ", arguments.Skip(1));
+                                }
+                                success = DocumentTemplateExport.Execute(directory, prefix, filter);
                             }
-                            success = DocumentTemplateExport.Execute(directory, prefix, filter);
                         }
                         break;
                     case "document-template":
                         {
                             var templates = GetJobData<DocumentTemplates>(directory, prefix, job);
-                            CallerObjectId = templates.CallerObjectId;
-                            MsCrmCallerId = templates.MsCrmCallerId;
-                            success = DocumentTemplateJob.Execute(directory, templates);
+                            success = CallerCheck.Execute(templates);
+                            if (success)
+                            {
+                                success = DocumentTemplateJob.Execute(directory, templates);
+                            }
                         }
                         break;
                     /*
@@ -343,9 +365,11 @@ namespace D365.Community.Ps.Automation
                     case "duplicate-rule":
                         {
                             var rules = GetJobData<DuplicateRules>(directory, prefix, job);
-                            CallerObjectId = rules.CallerObjectId;
-                            MsCrmCallerId = rules.MsCrmCallerId;
-                            success = DuplicateRuleJob.Execute(rules);
+                            success = CallerCheck.Execute(rules);
+                            if (success)
+                            {
+                                success = DuplicateRuleJob.Execute(rules);
+                            }
                         }
                         break;
                     /*
@@ -354,9 +378,11 @@ namespace D365.Community.Ps.Automation
                     case "entity-all-assets":
                         {
                             var config = GetJobData<EntitiesAllAssets>(directory, prefix, job);
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            success = EntityAllAssetsCheck.Execute(config);
+                            success = CallerCheck.Execute(config);
+                            if (success)
+                            {
+                                success = EntityAllAssetsCheck.Execute(config);
+                            }
                         }
                         break;
                     /*
@@ -365,27 +391,31 @@ namespace D365.Community.Ps.Automation
                     case "export-environment-variable":
                         {
                             var config = GetJobData<EnvironmentVariableConfig>(directory, prefix, "environment-variable", true);
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            var filter = config?.Filter;
-                            if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                            success = CallerCheck.Execute(config);
+                            if (success)
                             {
-                                filter = string.Join(" and ", arguments.Skip(1));
+                                var filter = config?.Filter;
+                                if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                                {
+                                    filter = string.Join(" and ", arguments.Skip(1));
+                                }
+                                success = EnvironmentVariableExport.Execute(directory, prefix, filter);
                             }
-                            success = EnvironmentVariableExport.Execute(directory, prefix, filter);
                         }
                         break;
                     case "environment-variable":
                         {
                             var config = GetJobData<Caller>(directory, prefix, job);
-                            CallerObjectId = config.CallerObjectId;
-                            MsCrmCallerId = config.MsCrmCallerId;
-                            var pacSettings = "pac-settings";
-                            if (arguments.Length > 1)
+                            success = CallerCheck.Execute(config);
+                            if (success)
                             {
-                                pacSettings = string.Join("\\", arguments.Skip(1));
+                                var pacSettings = "pac-settings";
+                                if (arguments.Length > 1)
+                                {
+                                    pacSettings = string.Join("\\", arguments.Skip(1));
+                                }
+                                success = EnvironmentVariableJob.Execute(directory, prefix, pacSettings);
                             }
-                            success = EnvironmentVariableJob.Execute(directory, prefix, pacSettings);
                         }
                         break;
                     /*
@@ -394,9 +424,11 @@ namespace D365.Community.Ps.Automation
                     case "index-creation":
                         {
                             var config = GetJobData<Caller>(directory, prefix, job, true);
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            success = EntityKeyIndexCreationVerification.Execute();
+                            success = CallerCheck.Execute(config);
+                            if (success)
+                            {
+                                success = EntityKeyIndexCreationVerification.Execute();
+                            }
                         }
                         break;
                     /*
@@ -405,9 +437,11 @@ namespace D365.Community.Ps.Automation
                     case "index-status":
                         {
                             var config = GetJobData<Caller>(directory, prefix, job, true);
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            success = EntityKeyIndexStatusVerification.Execute();
+                            success = CallerCheck.Execute(config);
+                            if (success)
+                            {
+                                success = EntityKeyIndexStatusVerification.Execute();
+                            }
                         }
                         break;
                     /*
@@ -416,9 +450,11 @@ namespace D365.Community.Ps.Automation
                     case "process-activation":
                         {
                             var config = GetJobData<ProcessActivation>(directory, prefix, job);
-                            CallerObjectId = config.CallerObjectId;
-                            MsCrmCallerId = config.MsCrmCallerId;
-                            success = ProcessActivationJob.Execute(config);
+                            success = CallerCheck.Execute(config);
+                            if (success)
+                            {
+                                success = ProcessActivationJob.Execute(config);
+                            }
                         }
                         break;
                     /*
@@ -427,14 +463,16 @@ namespace D365.Community.Ps.Automation
                     case "process-owner":
                         {
                             var config = GetJobData<ProcessOwner>(directory, prefix, job);
-                            CallerObjectId = config.CallerObjectId;
-                            MsCrmCallerId = config.MsCrmCallerId;
-                            var filter = "";//config?.Filter;
-                            if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                            success = CallerCheck.Execute(config);
+                            if (success)
                             {
-                                filter = string.Join(" and ", arguments.Skip(1));
+                                var filter = "";//config?.Filter;
+                                if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                                {
+                                    filter = string.Join(" and ", arguments.Skip(1));
+                                }
+                                success = ProcessOwnerJob.Execute(config, filter);
                             }
-                            success = ProcessOwnerJob.Execute(config, filter);
                         }
                         break;
                     /*
@@ -442,15 +480,17 @@ namespace D365.Community.Ps.Automation
                      */
                     case "export-queue":
                         {
-                            var queries = GetJobData<Queues>(directory, prefix, "queue", true);
-                            CallerObjectId = queries?.CallerObjectId;
-                            MsCrmCallerId = queries?.MsCrmCallerId;
-                            var filter = queries?.Filter;
-                            if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                            var queues = GetJobData<Queues>(directory, prefix, "queue", true);
+                            success = CallerCheck.Execute(queues);
+                            if (success)
                             {
-                                filter = string.Join(" and ", arguments.Skip(1));
+                                var filter = queues?.Filter;
+                                if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                                {
+                                    filter = string.Join(" and ", arguments.Skip(1));
+                                }
+                                success = QueueExport.Execute(directory, prefix, filter);
                             }
-                            success = QueueExport.Execute(directory, prefix, filter);
                         }
                         break;
                     /*
@@ -459,22 +499,26 @@ namespace D365.Community.Ps.Automation
                     case "export-saved-query":
                         {
                             var queries = GetJobData<SavedQueries>(directory, prefix, "saved-query", true);
-                            CallerObjectId = queries?.CallerObjectId;
-                            MsCrmCallerId = queries?.MsCrmCallerId;
-                            var filter = queries?.Filter;
-                            if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                            success = CallerCheck.Execute(queries);
+                            if (success)
                             {
-                                filter = string.Join(" and ", arguments.Skip(1));
+                                var filter = queries?.Filter;
+                                if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                                {
+                                    filter = string.Join(" and ", arguments.Skip(1));
+                                }
+                                success = SavedQueryExport.Execute(directory, prefix, filter);
                             }
-                            success = SavedQueryExport.Execute(directory, prefix, filter);
                         }
                         break;
                     case "saved-query":
                         {
                             var queries = GetJobData<SavedQueries>(directory, prefix, job);
-                            CallerObjectId = queries?.CallerObjectId;
-                            MsCrmCallerId = queries?.MsCrmCallerId;
-                            success = SavedQueryJob.Execute(queries);
+                            success = CallerCheck.Execute(queries);
+                            if (success)
+                            {
+                                success = SavedQueryJob.Execute(queries);
+                            }
                         }
                         break;
                     /*
@@ -483,9 +527,11 @@ namespace D365.Community.Ps.Automation
                     case "secure-config":
                         {
                             var config = GetJobData<Caller>(directory, prefix, job, true);
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            success = arguments.Length == 5 && SecureConfigJob.Execute(arguments[1], arguments[2], arguments[3], arguments[4]);
+                            success = CallerCheck.Execute(config);
+                            if (success)
+                            {
+                                success = arguments.Length == 5 && SecureConfigJob.Execute(arguments[1], arguments[2], arguments[3], arguments[4]);
+                            }
                         }
                         break;
                     /*
@@ -494,9 +540,11 @@ namespace D365.Community.Ps.Automation
                     case "solution-component":
                         {
                             var config = GetJobData<SolutionsComponents>(directory, prefix, "solution-component");
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            success = SolutionComponentCheck.Execute(config);
+                            success = CallerCheck.Execute(config);
+                            if (success)
+                            {
+                                success = SolutionComponentCheck.Execute(config);
+                            }
                         }
                         break;
                     /*
@@ -505,22 +553,26 @@ namespace D365.Community.Ps.Automation
                     case "export-team-template":
                         {
                             var templates = GetJobData<TeamTemplates>(directory, prefix, "team-template", true);
-                            CallerObjectId = templates?.CallerObjectId;
-                            MsCrmCallerId = templates?.MsCrmCallerId;
-                            var filter = templates?.Filter;
-                            if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                            success = CallerCheck.Execute(templates);
+                            if (success)
                             {
-                                filter = string.Join(" and ", arguments.Skip(1));
+                                var filter = templates?.Filter;
+                                if (string.IsNullOrWhiteSpace(filter) && arguments.Length > 1)
+                                {
+                                    filter = string.Join(" and ", arguments.Skip(1));
+                                }
+                                success = TeamTemplateExport.Execute(directory, prefix, filter);
                             }
-                            success = TeamTemplateExport.Execute(directory, prefix, filter);
                         }
                         break;
                     case "team-template":
                         {
                             var templates = GetJobData<TeamTemplates>(directory, prefix, job);
-                            CallerObjectId = templates?.CallerObjectId;
-                            MsCrmCallerId = templates?.MsCrmCallerId;
-                            success = TeamTemplateJob.Execute(templates);
+                            success = CallerCheck.Execute(templates);
+                            if (success)
+                            {
+                                success = TeamTemplateJob.Execute(templates);
+                            }
                         }
                         break;
                     /*
@@ -529,9 +581,11 @@ namespace D365.Community.Ps.Automation
                     case "user-setup":
                         {
                             var users = GetJobData<UserSet>(directory, prefix, job);
-                            CallerObjectId = users.CallerObjectId;
-                            MsCrmCallerId = users.MsCrmCallerId;
-                            success = UserSetupJob.Execute(users);
+                            success = CallerCheck.Execute(users);
+                            if (success)
+                            {
+                                success = UserSetupJob.Execute(users);
+                            }
                         }
                         break;
                     /*
@@ -540,9 +594,11 @@ namespace D365.Community.Ps.Automation
                     case "webresource-registration":
                         {
                             var registrations = GetJobData<WebResourceRegistration>(directory, prefix, job);
-                            CallerObjectId = registrations?.CallerObjectId;
-                            MsCrmCallerId = registrations?.MsCrmCallerId;
-                            success = WebResourceRegistrationJob.Execute(directory, registrations);
+                            success = CallerCheck.Execute(registrations);
+                            if (success)
+                            {
+                                success = WebResourceRegistrationJob.Execute(directory, registrations);
+                            }
                         }
                         break;
                     /*
@@ -551,9 +607,11 @@ namespace D365.Community.Ps.Automation
                     case "export-file-attachment":
                         {
                             var config = GetJobData<Caller>(directory, prefix, job, true);
-                            CallerObjectId = config?.CallerObjectId;
-                            MsCrmCallerId = config?.MsCrmCallerId;
-                            success = arguments.Length == 4 && FileAttachmentExport.Execute(directory, prefix, arguments[1], arguments[2], arguments[3]);
+                            success = CallerCheck.Execute(config);
+                            if (success)
+                            {
+                                success = arguments.Length == 4 && FileAttachmentExport.Execute(directory, prefix, arguments[1], arguments[2], arguments[3]);
+                            }
                         }
                         break;
                     default:
