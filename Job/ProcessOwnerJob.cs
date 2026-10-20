@@ -256,7 +256,8 @@ namespace D365.Community.Ps.Automation.Job
         {
             var result = true;
             var url = $"{PsAutomation.ApiUrl}/workflows({workflow.WorkflowId:D})";
-            if (workflow.StateCode == 1)//is active and owner update needed
+            var active = workflow.StateCode == 1;
+            if (active)//is active
             {
                 //MS; nasty exception -> Cannot update a published workflow definition.
                 if (workflow.Category == 3)//Actions; it ain't get boring
@@ -279,7 +280,7 @@ namespace D365.Community.Ps.Automation.Job
             //update owner
             Console.WriteLine($"INFO: update owner of '{workflow.Name}' ({TranslateCategory(workflow.Category)})");
             result = Client.Patch(url, owner.ToString());
-            if (workflow.StateCode == 1 && result)//was active and owner update succeeded
+            if (active)//was active, try to keep state
             {
                 result = ProcessActivationJob.Activate(url, workflow);
             }
